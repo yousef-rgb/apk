@@ -161,6 +161,10 @@ jobs:
       with:
         flutter-version: ${{ env.FLUTTER_VERSION }}
 
+    - name: Accept Android Licenses for AAB
+      run: |
+        flutter doctor --android-licenses --verbose
+
     - name: Flet Build AAB
       run: |
         flutter config --no-analytics
@@ -201,6 +205,11 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '21'
+
+    - name: Accept Android Licenses for APK
+      run: |
+        yes | sdkmanager --licenses || true
+        flutter doctor --android-licenses
 
     - name: Flet Build APK
       run: |
@@ -248,4 +257,4 @@ jobs:
         name: ipa-build-artifact
         path: build/ipa
         if-no-files-found: warn
-        overwrite: fals
+        overwrite: false
